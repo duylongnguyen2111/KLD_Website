@@ -28,8 +28,8 @@
     "label_vi": "Truyền thông Khoa học Tinh chỉnh",
     "title_en": "Elevating <em>Life Science</em> Brands with Strategic Precision",
     "title_vi": "Nâng tầm thương hiệu <em>Khoa học Sự sống</em> với chiến lược chính xác",
-    "desc_en": "At KALEIDO, we believe a well thought-through life science marketing plan and tools is critical for business success. We bring a comprehensive strategy and cutting-edge tools to your ecosystem's integration.",
-    "desc_vi": "Tại KALEIDO, chúng tôi tin rằng một kế hoạch marketing khoa học sự sống được cân nhắc kỹ lưỡng là yếu tố then chốt cho thành công kinh doanh. Chúng tôi mang đến chiến lược toàn diện và công cụ tiên tiến để tích hợp vào hệ sinh thái của bạn.",
+    "desc_en": "At KALEIDO, we believe a well thought-through life science marketing plan and tools is critical for business success. We bring a comprehensive strategy and cutting-edge tools to your ecosystem’s integration.",
+    "desc_vi": "Tại KALEIDO, chúng tôi tin rằng một kế hoạch marketing khoa học sự sống được cân nhắc kỹ lưỡng là yếu tố then chốt.",
     "cta_en": "Get in Touch",
     "cta_vi": "Liên hệ ngay",
     "cta_href": "#contact"
@@ -39,35 +39,35 @@
     "label_vi": "Tại sao chọn chúng tôi",
     "title_en": "Built for the complexity of life science marketing",
     "title_vi": "Được xây dựng cho sự phức tạp của marketing khoa học sự sống",
-    "desc_en": "With deep expertise in pharmaceutical, nutritional, and medical device sectors, we understand the regulations, the science, and the audience — so your message is always pertinent and accurate.",
-    "desc_vi": "Với chuyên môn sâu trong lĩnh vực dược phẩm, dinh dưỡng và thiết bị y tế, chúng tôi hiểu rõ quy định, khoa học và đối tượng — để thông điệp của bạn luôn phù hợp và chính xác.",
+    "desc_en": "With deep expertise in pharmaceutical, nutritional, and medical device sectors, we understand the regulations, the science, and the audience.",
+    "desc_vi": "Với chuyên môn sâu trong lĩnh vực dược phẩm, dinh dưỡng và thiết bị y tế.",
     "cards": [
       {
         "title_en": "Regulatory Fluency",
         "title_vi": "Thông thạo quy định",
-        "desc_en": "Every campaign follows ethical and legal guidelines, ensuring accuracy and credibility across all healthcare communication channels.",
-        "desc_vi": "Mọi chiến dịch đều tuân thủ hướng dẫn đạo đức và pháp lý, đảm bảo tính chính xác và uy tín trên tất cả các kênh truyền thông y tế.",
+        "desc_en": "Every campaign follows ethical and legal guidelines, ensuring accuracy and credibility.",
+        "desc_vi": "Mọi chiến dịch tuân thủ hướng dẫn đạo đức và pháp lý.",
         "icon": "shield"
       },
       {
         "title_en": "Science-First Approach",
-        "title_vi": "Tiếp cận Khoa học là trên hết",
-        "desc_en": "Our team combines marketing expertise with scientific knowledge to produce content that resonates with healthcare professionals and brand teams alike.",
-        "desc_vi": "Đội ngũ của chúng tôi kết hợp chuyên môn marketing với kiến thức khoa học để tạo ra nội dung có sức ảnh hưởng với cả chuyên gia y tế và đội ngũ thương hiệu.",
+        "title_vi": "Tiếp cận Khoa học",
+        "desc_en": "Our team combines marketing expertise with scientific knowledge.",
+        "desc_vi": "Kết hợp chuyên môn marketing với kiến thức khoa học.",
         "icon": "book"
       },
       {
         "title_en": "Maximize Your ROI",
-        "title_vi": "Tối ưu hóa ROI",
-        "desc_en": "We help you maximize the return on marketing investment through data-driven strategy, integrated tools, and measurable outcomes at every stage.",
-        "desc_vi": "Chúng tôi giúp bạn tối đa hóa lợi nhuận đầu tư marketing thông qua chiến lược dựa trên dữ liệu, công cụ tích hợp và kết quả đo lường được ở mọi giai đoạn.",
+        "title_vi": "Tối ưu ROI",
+        "desc_en": "Maximize return on marketing investment through data-driven strategy.",
+        "desc_vi": "Tối đa hóa lợi nhuận đầu tư marketing.",
         "icon": "chart"
       }
     ]
   },
   "services": {
     "label_en": "Our Services",
-    "label_vi": "Dịch vụ của chúng tôi",
+    "label_vi": "Dịch vụ",
     "title_en": "What we deliver",
     "title_vi": "Những gì chúng tôi cung cấp",
     "blocks": [
@@ -75,8 +75,8 @@
         "num": "01",
         "title_en": "Brand Strategy Development",
         "title_vi": "Phát triển chiến lược thương hiệu",
-        "desc_en": "We deliver a comprehensive brand strategy and setting a clear direction for healthcare communication excellence.",
-        "desc_vi": "Chúng tôi cung cấp chiến lược thương hiệu toàn diện và định hướng rõ ràng cho truyền thông y tế xuất sắc.",
+        "desc_en": "Comprehensive brand strategy for healthcare communication excellence.",
+        "desc_vi": "Chiến lược thương hiệu toàn diện.",
         "details_en": [
           "Medical Marketing Plan",
           "Communication Concept & Strategy",
@@ -86,20 +86,19 @@
         ],
         "details_vi": [
           "Kế hoạch Marketing Y tế",
-          "Khái niệm & Chiến lược Truyền thông",
+          "Khái niệm & Chiến lược",
           "Phân tích Đối thủ",
-          "Định vị & Kiến trúc Thương hiệu",
-          "Phát triển Bộ nhận diện Thương hiệu"
+          "Định vị & Kiến trúc",
+          "Phát triển Bộ nhận diện"
         ]
       },
       {
         "num": "02",
         "title_en": "Medical Conference / Communication Campaign",
-        "title_vi": "Hội nghị Y tế / Chiến dịch Truyền thông",
-        "desc_en": "We prioritize scientific planning for brand communication and integrate both traditional and modern marketing tools to guarantee pertinent and accurate messages.",
-        "desc_vi": "Chúng tôi ưu tiên lập kế hoạch khoa học cho truyền thông thương hiệu và tích hợp cả công cụ marketing truyền thống lẫn hiện đại để đảm bảo thông điệp phù hợp và chính xác.",
+        "title_vi": "Hội nghị / Truyền thông",
+        "desc_en": "Scientific planning integrating traditional and modern marketing tools.",
+        "desc_vi": "Kế hoạch khoa học tích hợp công cụ marketing.",
         "details_en": [
-          "Multi-channel Campaign Management",
           "Symposium / Launching / Medical Events",
           "Seminar / Webinar / Workshop",
           "Trade Marketing / Mystery Shopper / POSM",
@@ -108,21 +107,20 @@
           "TVC / Radio / Press Production"
         ],
         "details_vi": [
-          "Quản lý Chiến dịch Đa kênh",
-          "Hội thảo / Ra mắt / Sự kiện Y tế",
+          "Hội thảo / Ra mắt",
           "Seminar / Webinar / Workshop",
-          "Trade Marketing / Mystery Shopper / POSM",
-          "Chương trình Kết nối & Vận động HCP",
-          "Mạng xã hội & Theo dõi Hiệu quả",
-          "Sản xuất TVC / Radio / Báo chí"
+          "Trade Marketing / POSM",
+          "Kết nối HCP",
+          "Mạng xã hội",
+          "TVC / Radio / Báo chí"
         ]
       },
       {
         "num": "03",
         "title_en": "Science-Based Content Creation",
         "title_vi": "Sáng tạo Nội dung Khoa học",
-        "desc_en": "Our team of experts deliver high-quality yet engaging science-based content, following ethical and legal guidelines to ensure accuracy and credibility.",
-        "desc_vi": "Đội ngũ chuyên gia của chúng tôi cung cấp nội dung khoa học chất lượng cao và hấp dẫn, tuân thủ hướng dẫn đạo đức và pháp lý để đảm bảo tính chính xác và uy tín.",
+        "desc_en": "High-quality engaging science-based content.",
+        "desc_vi": "Nội dung khoa học chất lượng cao.",
         "details_en": [
           "Medical & Scientific Copywriting",
           "Visual-aid & Detail-aid Production",
@@ -131,19 +129,19 @@
           "CME & E-Learning Materials"
         ],
         "details_vi": [
-          "Viết nội dung Y khoa & Khoa học",
-          "Sản xuất Visual-aid & Detail-aid",
-          "Phát triển Tài liệu Giáo dục",
-          "Email được phê duyệt",
-          "Tài liệu CME & E-Learning"
+          "Viết Y khoa",
+          "Visual-aid & Detail-aid",
+          "Tài liệu Giáo dục",
+          "Email phê duyệt",
+          "CME & E-Learning"
         ]
       },
       {
         "num": "04",
         "title_en": "Pragmatic System Production",
-        "title_vi": "Sản xuất Hệ thống Thực tiễn",
-        "desc_en": "We apply practical knowledge and skills to create systems that are efficient, effective and adaptable to changing needs and contexts.",
-        "desc_vi": "Chúng tôi áp dụng kiến thức và kỹ năng thực tiễn để tạo ra các hệ thống hiệu quả, linh hoạt và thích ứng với nhu cầu thay đổi.",
+        "title_vi": "Hệ thống Thực tiễn",
+        "desc_en": "Efficient, adaptable systems for changing needs.",
+        "desc_vi": "Hệ thống hiệu quả và linh hoạt.",
         "details_en": [
           "Medical Website & Mobile Apps",
           "Zalo Integration",
@@ -152,11 +150,11 @@
           "Pharma CRM Application"
         ],
         "details_vi": [
-          "Website Y tế & Ứng dụng Di động",
+          "Website & App",
           "Tích hợp Zalo",
-          "Landing Page & Info-hub",
-          "Nền tảng CME & E-Learning",
-          "Ứng dụng Pharma CRM"
+          "Landing Page",
+          "CME Platform",
+          "Pharma CRM"
         ]
       }
     ]
@@ -164,8 +162,8 @@
   "contact": {
     "label_en": "Contact",
     "label_vi": "Liên hệ",
-    "title_en": "Let's start a conversation",
-    "title_vi": "Hãy bắt đầu cuộc trò chuyện",
+    "title_en": "Let’s start a conversation",
+    "title_vi": "Bắt đầu trò chuyện",
     "info": [
       {
         "type": "email",
@@ -191,9 +189,9 @@
     ],
     "form": {
       "title_en": "Send us a message",
-      "title_vi": "Gửi tin nhắn cho chúng tôi",
+      "title_vi": "Gửi tin nhắn",
       "desc_en": "Fill in the form below and our team will respond shortly.",
-      "desc_vi": "Điền thông tin bên dưới, đội ngũ chúng tôi sẽ phản hồi sớm nhất.",
+      "desc_vi": "Điền thông tin, chúng tôi sẽ phản hồi sớm.",
       "submit_en": "Send Message",
       "submit_vi": "Gửi tin nhắn",
       "mailto": "info@kaleido.com.vn"
@@ -201,7 +199,7 @@
   },
   "footer": {
     "desc_en": "We bring comprehensive marketing strategy and cutting-edge tools to the life science ecosystem.",
-    "desc_vi": "Chúng tôi mang đến chiến lược marketing toàn diện và công cụ tiên tiến cho hệ sinh thái khoa học sự sống.",
+    "desc_vi": "Chiến lược marketing toàn diện cho hệ sinh thái khoa học sự sống.",
     "copyright": "© 2025 KALEIDO. All rights reserved."
   }
 }
