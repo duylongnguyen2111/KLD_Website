@@ -1739,7 +1739,7 @@
           </div>
         </div>
 
-        <div class="contact-info-card">
+        <a href="https://www.linkedin.com/company/kaleido-vn/" target="_blank" rel="noopener" class="contact-info-card" data-contact-link="3" style="text-decoration:none;color:inherit;cursor:pointer;">
           <div class="contact-info-icon">
             <svg viewBox="0 0 24 24">
               <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
@@ -1751,7 +1751,7 @@
             <h4>LinkedIn</h4>
             <p>KALEIDO</p>
           </div>
-        </div>
+        </a>
       </div>
     </div>
     <div class="contact-form-wrapper reveal">
@@ -1850,7 +1850,7 @@
           <rect x="2" y="9" width="4" height="12"/>
           <circle cx="4" cy="4" r="2"/>
         </svg>
-        <p><a href="#" style="color: rgba(255,255,255,0.4); transition: color 0.25s;">LinkedIn</a></p>
+        <p><a href="https://www.linkedin.com/company/kaleido-vn/" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); transition: color 0.25s;">LinkedIn</a></p>
       </div>
     </div>
   </div>
@@ -1946,6 +1946,16 @@
     // Logo bindings
     var logoEls = document.querySelectorAll('[data-logo]');
     logoEls.forEach(function(el) { bindLogo(el); });
+
+    // Contact link bindings (e.g. LinkedIn URL from CMS)
+    var linkEls = document.querySelectorAll('[data-contact-link]');
+    linkEls.forEach(function(el) {
+      var idx = parseInt(el.getAttribute('data-contact-link'));
+      var info = contentData && contentData.contact && contentData.contact.info;
+      if (info && info[idx] && info[idx].url) {
+        el.setAttribute('href', info[idx].url);
+      }
+    });
 
     // Update lang buttons
     document.querySelectorAll('.nav-lang-btn').forEach(function(btn) {
