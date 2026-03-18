@@ -1966,16 +1966,13 @@
     });
 
     // Store preference
-    try { localStorage.setItem('kaleido-lang', lang); } catch(e) {}
+    // Language preference not persisted — always starts EN
   }
 
   // ─── Init: fetch content and render ───
   function init() {
     // Detect stored language preference
-    try {
-      var stored = localStorage.getItem('kaleido-lang');
-      if (stored === 'en' || stored === 'vi') currentLang = stored;
-    } catch(e) {}
+    // Always start in English
 
     fetch('content.json')
       .then(function(res) { return res.json(); })
