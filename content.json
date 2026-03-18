@@ -8,7 +8,7 @@
     "links": [
       {
         "label_en": "About Us",
-        "label_vi": "Về chúng tui",
+        "label_vi": "Về chúng tôi",
         "href": "#about"
       },
       {
@@ -36,7 +36,7 @@
   },
   "why": {
     "label_en": "Why We Can Help",
-    "label_vi": "Tại sao chọn chúng tôi",
+    "label_vi": "Tại sao chọn KALEIDO",
     "title_en": "Built for the complexity of life science marketing",
     "title_vi": "Được xây dựng cho sự phức tạp của marketing khoa học sự sống",
     "desc_en": "With deep expertise in pharmaceutical, nutritional, and medical device sectors, we understand the regulations, the science, and the audience.",
@@ -69,7 +69,7 @@
     "label_en": "Our Services",
     "label_vi": "Dịch vụ",
     "title_en": "What we deliver",
-    "title_vi": "Những gì chúng tôi cung cấp",
+    "title_vi": "Những gì KALEIDO cung cấp",
     "blocks": [
       {
         "num": "01",
@@ -186,7 +186,7 @@
         "type": "linkedin",
         "label": "LinkedIn",
         "value": "KALEIDO",
-        "url": "#"
+        "url": "https://www.linkedin.com/company/kaleido-vn/"
       }
     ],
     "form": {
