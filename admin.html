@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KALEIDO — Content Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&family=Raleway:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary:#6768AB;--primary-light:#7E7FBD;--primary-pale:#EBEBF5;
+  --accent:#7550A0;--dark:#27283D;--dark-soft:#3A3B55;
+  --white:#FFF;--off-white:#F7F7FB;--gray-50:#FAFAFC;
+  --gray-100:#F0F0F5;--gray-200:#E2E2EA;--gray-300:#C8C8D4;
+  --gray-400:#9696A8;--gray-500:#6E6E82;--gray-600:#4A4A5E;
+  --green:#3B9B6D;--red:#C94F4F;--red-light:#FCEAEA;
+  --font:'Nunito Sans',sans-serif;--font-h:'Raleway',sans-serif;
+  --radius:10px;--shadow:0 1px 3px rgba(39,40,61,0.04);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);color:var(--dark);background:var(--gray-100);-webkit-font-smoothing:antialiased}
+
+/* ═══ HEADER ═══ */
+.hdr{background:var(--dark);color:var(--white);padding:0 1.75rem;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.hdr-brand{display:flex;align-items:center;gap:.75rem}
+.hdr-brand h1{font-family:var(--font-h);font-size:.9rem;font-weight:600;letter-spacing:.8px}
+.hdr-brand h1 span{color:var(--primary-light)}
+.hdr-badge{font-size:.6rem;font-weight:700;background:var(--dark-soft);color:var(--gray-400);padding:.2rem .55rem;border-radius:4px;letter-spacing:.8px;text-transform:uppercase}
+.hdr-actions{display:flex;gap:.5rem;align-items:center}
+
+/* ═══ LAYOUT ═══ */
+.body{display:flex;min-height:calc(100vh - 54px)}
+
+/* ═══ SIDEBAR ═══ */
+.side{width:232px;background:var(--white);border-right:1px solid var(--gray-200);flex-shrink:0;position:sticky;top:54px;height:calc(100vh - 54px);overflow-y:auto;padding-bottom:2rem}
+.side::-webkit-scrollbar{width:4px}
+.side::-webkit-scrollbar-thumb{background:var(--gray-300);border-radius:4px}
+.sg{padding-top:1rem}
+.sg:first-child{padding-top:.75rem}
+.sg-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;color:var(--gray-400);padding:.4rem 1.25rem .5rem;user-select:none}
+.sl{display:block;padding:.5rem 1.25rem;font-size:.82rem;color:var(--gray-500);cursor:pointer;border-left:3px solid transparent;transition:all .15s;user-select:none}
+.sl:hover{background:var(--gray-50);color:var(--dark)}
+.sl.active{background:var(--primary-pale);color:var(--primary);border-left-color:var(--primary);font-weight:600}
+.s-div{height:1px;background:var(--gray-100);margin:.5rem 1.25rem}
+
+/* ═══ MAIN ═══ */
+.main{flex:1;padding:1.75rem 2rem;max-width:860px;animation:fi .2s ease}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.mhdr{margin-bottom:1.5rem}
+.mt{font-family:var(--font-h);font-size:1.15rem;font-weight:600}
+.ms{font-size:.8rem;color:var(--gray-400);margin-top:.15rem}
+
+/* ═══ BUTTONS ═══ */
+.btn{font-family:var(--font);font-size:.78rem;font-weight:600;padding:.5rem 1.1rem;border:none;border-radius:7px;cursor:pointer;transition:all .15s;letter-spacing:.2px;display:inline-flex;align-items:center;gap:.4rem}
+.btn-p{background:var(--primary);color:var(--white)}.btn-p:hover{background:var(--accent)}
+.btn-g{background:var(--green);color:var(--white)}.btn-g:hover{background:#338B5E}
+.btn-h{background:var(--dark-soft);color:var(--gray-300);border:1px solid var(--gray-600)}.btn-h:hover{border-color:var(--primary-light);color:var(--white)}
+.btn-o{background:transparent;border:1.5px solid var(--gray-200);color:var(--gray-500)}.btn-o:hover{border-color:var(--primary);color:var(--primary)}
+.btn-add{font-family:var(--font);font-size:.75rem;color:var(--primary);background:none;border:1.5px dashed var(--gray-200);padding:.45rem .85rem;border-radius:7px;cursor:pointer;transition:all .15s;margin-top:.5rem;display:inline-flex;align-items:center;gap:.3rem}
+.btn-add:hover{background:var(--primary-pale);border-color:var(--primary)}
+.btn-del{width:26px;height:26px;border:none;background:transparent;color:var(--gray-300);border-radius:6px;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.btn-del:hover{background:var(--red-light);color:var(--red)}
+
+/* ═══ CARDS ═══ */
+.card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1.25rem;box-shadow:var(--shadow)}
+.card-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--gray-100)}
+.card-t{font-family:var(--font-h);font-size:.95rem;font-weight:600}
+.card-id{font-size:.65rem;color:var(--gray-400);background:var(--gray-100);padding:.2rem .5rem;border-radius:4px;font-weight:700;letter-spacing:.5px;font-family:monospace}
+
+/* ═══ FIELDS ═══ */
+.fg{margin-bottom:1.15rem}.fg:last-child{margin-bottom:0}
+.fl{display:flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:600;color:var(--gray-500);margin-bottom:.35rem;letter-spacing:.2px}
+.lang{font-size:.58rem;font-weight:700;padding:.12rem .35rem;border-radius:3px;letter-spacing:.6px;line-height:1}
+.lang-en{background:#E3E8F8;color:#4A5B9C}
+.lang-vn{background:#FDEADD;color:#9C654A}
+.fi{width:100%;padding:.55rem .8rem;border:1.5px solid var(--gray-200);border-radius:7px;font-family:var(--font);font-size:.85rem;color:var(--dark);background:var(--white);transition:all .15s;outline:none}
+.fi:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(103,104,171,.08)}
+.fi::placeholder{color:var(--gray-300)}
+textarea.fi{min-height:72px;resize:vertical;line-height:1.55}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
+
+/* ═══ LOGO ═══ */
+.logo-area{display:flex;align-items:center;gap:1rem;padding:.85rem 1rem;background:var(--gray-50);border:1.5px dashed var(--gray-300);border-radius:var(--radius);cursor:pointer;transition:all .15s}
+.logo-area:hover{border-color:var(--primary);background:var(--primary-pale)}
+.logo-prev{width:110px;height:38px;background:var(--gray-200);border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;font-size:.6rem;color:var(--gray-400);font-weight:700;letter-spacing:1px}
+.logo-prev img{max-width:100%;max-height:100%;object-fit:contain}
+.logo-txt{font-size:.78rem;color:var(--gray-500);line-height:1.4}
+.logo-txt strong{display:block;color:var(--dark);font-size:.82rem;margin-bottom:.1rem}
+
+/* ═══ LIST EDITOR ═══ */
+.li-item{display:flex;gap:.4rem;align-items:center;margin-bottom:.4rem;padding:.2rem;border-radius:6px;transition:background .15s}
+.li-item.dragging{opacity:.4;background:var(--primary-pale)}
+.li-item.drag-over{border-top:2px solid var(--primary);margin-top:-2px}
+.li-num{font-size:.65rem;font-weight:700;color:var(--gray-400);width:18px;text-align:center;flex-shrink:0}
+.li-drag{cursor:grab;color:var(--gray-300);font-size:.9rem;flex-shrink:0;padding:0 .15rem;user-select:none}
+.li-drag:active{cursor:grabbing}
+.li-item input{flex:1;padding:.45rem .7rem;font-size:.82rem}
+
+/* ═══ DRAGGABLE CARD ═══ */
+.drag-card{position:relative;padding:.15rem 0}
+.drag-card.dragging{opacity:.4}
+.drag-card.drag-over-top{border-top:2px solid var(--primary)}
+.drag-card.drag-over-bot{border-bottom:2px solid var(--primary)}
+.drag-handle{position:absolute;left:-1.5rem;top:50%;transform:translateY(-50%);cursor:grab;color:var(--gray-300);font-size:.85rem;opacity:0;transition:opacity .15s;user-select:none}
+.drag-handle:active{cursor:grabbing}
+.card:hover .drag-handle{opacity:1}
+
+/* ═══ GITHUB ═══ */
+.gh-card{background:linear-gradient(135deg,var(--dark) 0%,var(--dark-soft) 100%);color:var(--white);padding:1.5rem 1.75rem;border-radius:var(--radius);box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.gh-card h3{font-family:var(--font-h);font-size:.92rem;font-weight:600;margin-bottom:.35rem}
+.gh-card .gh-d{font-size:.78rem;color:var(--gray-400);margin-bottom:1.25rem;line-height:1.5}
+.gh-card label{font-size:.72rem;font-weight:600;color:var(--gray-300);display:block;margin-bottom:.25rem}
+.gh-card input{width:100%;padding:.5rem .7rem;border:1.5px solid var(--gray-600);border-radius:7px;background:rgba(255,255,255,.05);color:var(--white);font-family:var(--font);font-size:.82rem;margin-bottom:.85rem;outline:none;transition:border-color .15s}
+.gh-card input::placeholder{color:var(--gray-600)}
+.gh-card input:focus{border-color:var(--primary-light);background:rgba(255,255,255,.08)}
+.gh-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.gh-actions{display:flex;gap:.75rem;align-items:flex-end;margin-top:.25rem}
+.gh-actions .btn{flex:1;justify-content:center}
+
+/* ═══ SUB DIVIDERS ═══ */
+.sub-d{border-top:1px solid var(--gray-100);padding-top:1rem;margin-top:.75rem;margin-bottom:.5rem}
+.sub-l{font-size:.72rem;font-weight:700;color:var(--primary);letter-spacing:.3px;margin-bottom:.6rem;display:flex;align-items:center;gap:.35rem}
+.sub-n{background:var(--primary-pale);color:var(--primary);font-size:.6rem;width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700}
+
+/* ═══ TOAST ═══ */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;padding:.7rem 1.2rem;border-radius:8px;font-size:.82rem;font-weight:600;transform:translateY(80px);opacity:0;transition:all .25s;z-index:200;box-shadow:0 6px 20px rgba(0,0,0,.12);display:flex;align-items:center;gap:.5rem}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{background:var(--green);color:var(--white)}
+.toast.error{background:var(--red);color:var(--white)}
+
+/* ═══ INFO ═══ */
+.info{background:var(--primary-pale);border:1px solid rgba(103,104,171,.15);border-radius:8px;padding:.75rem 1rem;font-size:.76rem;color:var(--gray-600);line-height:1.5;margin-bottom:1.15rem}
+.info strong{color:var(--primary)}
+
+/* ═══ UNDO BAR ═══ */
+.undo-bar{display:flex;gap:.35rem;align-items:center}
+.undo-bar button{background:var(--dark-soft);border:1px solid var(--gray-600);color:var(--gray-400);width:30px;height:30px;border-radius:6px;cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.undo-bar button:hover:not(:disabled){color:var(--white);border-color:var(--primary-light)}
+.undo-bar button:disabled{opacity:.3;cursor:default}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-brand"><h1>KALEID<span>O</span></h1><span class="hdr-badge">Content Manager</span></div>
+  <div class="hdr-actions">
+    <div class="undo-bar">
+      <button id="btnUndo" title="Undo" disabled onclick="undo()">&#8630;</button>
+      <button id="btnRedo" title="Redo" disabled onclick="redo()">&#8631;</button>
+    </div>
+    <button class="btn btn-h" onclick="openPreview()">&#9655; Preview</button>
+    <button class="btn btn-h" onclick="exportJSON()">&#8681; Export</button>
+    <button class="btn btn-g" id="btnSave" onclick="saveToGitHub()">&#10003; Save &amp; Deploy</button>
+  </div>
+</header>
+<div class="body">
+  <nav class="side" id="sidebar">
+    <div class="sg"><div class="sg-label">Settings</div>
+      <div class="sl active" data-s="github">GitHub Connection</div>
+      <div class="sl" data-s="site">Site &amp; Logos</div>
+    </div><div class="s-div"></div>
+    <div class="sg"><div class="sg-label">Global Elements</div>
+      <div class="sl" data-s="nav">0.1 Navigation</div>
+      <div class="sl" data-s="footer">0.2 Footer</div>
+    </div><div class="s-div"></div>
+    <div class="sg"><div class="sg-label">About Us</div>
+      <div class="sl" data-s="hero">1.1 Hero</div>
+      <div class="sl" data-s="why">1.2 Why We Can Help</div>
+    </div><div class="s-div"></div>
+    <div class="sg"><div class="sg-label">Services</div>
+      <div class="sl" data-s="svc-h">2.0 Section Header</div>
+      <div class="sl" data-s="svc0">2.1 Brand Strategy</div>
+      <div class="sl" data-s="svc1">2.2 Communication</div>
+      <div class="sl" data-s="svc2">2.3 Content Creation</div>
+      <div class="sl" data-s="svc3">2.4 System Production</div>
+    </div><div class="s-div"></div>
+    <div class="sg"><div class="sg-label">Contact</div>
+      <div class="sl" data-s="contact">3.1 Contact Info</div>
+      <div class="sl" data-s="form">3.2 Contact Form</div>
+    </div>
+  </nav>
+  <main class="main" id="adminMain"></main>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+(function(){
+'use strict';
+
+// ═══ DATA ═══
+var data={"site":{"lang":"en","logo_nav":"","logo_footer":""},"nav":{"links":[{"label_en":"About Us","label_vi":"V\u1ec1 ch\u00fang t\u00f4i","href":"#about"},{"label_en":"Our Services","label_vi":"D\u1ecbch v\u1ee5","href":"#services"},{"label_en":"Contact","label_vi":"Li\u00ean h\u1ec7","href":"#contact"}]},"hero":{"label_en":"Bespoke Science Communication","label_vi":"Truy\u1ec1n th\u00f4ng Khoa h\u1ecdc Tinh ch\u1ec9nh","title_en":"Elevating <em>Life Science</em> Brands with Strategic Precision","title_vi":"N\u00e2ng t\u1ea7m th\u01b0\u01a1ng hi\u1ec7u <em>Khoa h\u1ecdc S\u1ef1 s\u1ed1ng</em> v\u1edbi chi\u1ebfn l\u01b0\u1ee3c ch\u00ednh x\u00e1c","desc_en":"At KALEIDO, we believe a well thought-through life science marketing plan and tools is critical for business success. We bring a comprehensive strategy and cutting-edge tools to your ecosystem\u2019s integration.","desc_vi":"T\u1ea1i KALEIDO, ch\u00fang t\u00f4i tin r\u1eb1ng m\u1ed9t k\u1ebf ho\u1ea1ch marketing khoa h\u1ecdc s\u1ef1 s\u1ed1ng \u0111\u01b0\u1ee3c c\u00e2n nh\u1eafc k\u1ef9 l\u01b0\u1ee1ng l\u00e0 y\u1ebfu t\u1ed1 then ch\u1ed1t.","cta_en":"Get in Touch","cta_vi":"Li\u00ean h\u1ec7 ngay","cta_href":"#contact"},"why":{"label_en":"Why We Can Help","label_vi":"T\u1ea1i sao ch\u1ecdn ch\u00fang t\u00f4i","title_en":"Built for the complexity of life science marketing","title_vi":"\u0110\u01b0\u1ee3c x\u00e2y d\u1ef1ng cho s\u1ef1 ph\u1ee9c t\u1ea1p c\u1ee7a marketing khoa h\u1ecdc s\u1ef1 s\u1ed1ng","desc_en":"With deep expertise in pharmaceutical, nutritional, and medical device sectors, we understand the regulations, the science, and the audience.","desc_vi":"V\u1edbi chuy\u00ean m\u00f4n s\u00e2u trong l\u0129nh v\u1ef1c d\u01b0\u1ee3c ph\u1ea9m, dinh d\u01b0\u1ee1ng v\u00e0 thi\u1ebft b\u1ecb y t\u1ebf.","cards":[{"title_en":"Regulatory Fluency","title_vi":"Th\u00f4ng th\u1ea1o quy \u0111\u1ecbnh","desc_en":"Every campaign follows ethical and legal guidelines, ensuring accuracy and credibility.","desc_vi":"M\u1ecdi chi\u1ebfn d\u1ecbch tu\u00e2n th\u1ee7 h\u01b0\u1edbng d\u1eabn \u0111\u1ea1o \u0111\u1ee9c v\u00e0 ph\u00e1p l\u00fd.","icon":"shield"},{"title_en":"Science-First Approach","title_vi":"Ti\u1ebfp c\u1eadn Khoa h\u1ecdc","desc_en":"Our team combines marketing expertise with scientific knowledge.","desc_vi":"K\u1ebft h\u1ee3p chuy\u00ean m\u00f4n marketing v\u1edbi ki\u1ebfn th\u1ee9c khoa h\u1ecdc.","icon":"book"},{"title_en":"Maximize Your ROI","title_vi":"T\u1ed1i \u01b0u ROI","desc_en":"Maximize return on marketing investment through data-driven strategy.","desc_vi":"T\u1ed1i \u0111a h\u00f3a l\u1ee3i nhu\u1eadn \u0111\u1ea7u t\u01b0 marketing.","icon":"chart"}]},"services":{"label_en":"Our Services","label_vi":"D\u1ecbch v\u1ee5","title_en":"What we deliver","title_vi":"Nh\u1eefng g\u00ec ch\u00fang t\u00f4i cung c\u1ea5p","blocks":[{"num":"01","title_en":"Brand Strategy Development","title_vi":"Ph\u00e1t tri\u1ec3n chi\u1ebfn l\u01b0\u1ee3c th\u01b0\u01a1ng hi\u1ec7u","desc_en":"Comprehensive brand strategy for healthcare communication excellence.","desc_vi":"Chi\u1ebfn l\u01b0\u1ee3c th\u01b0\u01a1ng hi\u1ec7u to\u00e0n di\u1ec7n.","details_en":["Medical Marketing Plan","Communication Concept & Strategy","Competitor Analysis","Brand Positioning & Architecture","Brand Guideline / Brand Identity Development"],"details_vi":["K\u1ebf ho\u1ea1ch Marketing Y t\u1ebf","Kh\u00e1i ni\u1ec7m & Chi\u1ebfn l\u01b0\u1ee3c","Ph\u00e2n t\u00edch \u0110\u1ed1i th\u1ee7","\u0110\u1ecbnh v\u1ecb & Ki\u1ebfn tr\u00fac","Ph\u00e1t tri\u1ec3n B\u1ed9 nh\u1eadn di\u1ec7n"]},{"num":"02","title_en":"Medical Conference / Communication Campaign","title_vi":"H\u1ed9i ngh\u1ecb / Truy\u1ec1n th\u00f4ng","desc_en":"Scientific planning integrating traditional and modern marketing tools.","desc_vi":"K\u1ebf ho\u1ea1ch khoa h\u1ecdc t\u00edch h\u1ee3p c\u00f4ng c\u1ee5 marketing.","details_en":["Multi-channel Campaign Management","Symposium / Launching / Medical Events","Seminar / Webinar / Workshop","Trade Marketing / Mystery Shopper / POSM","HCP Engagement & Advocacy Programs","Social Media & Performance Tracking","TVC / Radio / Press Production"],"details_vi":["Qu\u1ea3n l\u00fd \u0110a k\u00eanh","H\u1ed9i th\u1ea3o / Ra m\u1eaft","Seminar / Webinar / Workshop","Trade Marketing / POSM","K\u1ebft n\u1ed1i HCP","M\u1ea1ng x\u00e3 h\u1ed9i","TVC / Radio / B\u00e1o ch\u00ed"]},{"num":"03","title_en":"Science-Based Content Creation","title_vi":"S\u00e1ng t\u1ea1o N\u1ed9i dung Khoa h\u1ecdc","desc_en":"High-quality engaging science-based content.","desc_vi":"N\u1ed9i dung khoa h\u1ecdc ch\u1ea5t l\u01b0\u1ee3ng cao.","details_en":["Medical & Scientific Copywriting","Visual-aid & Detail-aid Production","Educational Material Development","Approved Emails","CME & E-Learning Materials"],"details_vi":["Vi\u1ebft Y khoa","Visual-aid & Detail-aid","T\u00e0i li\u1ec7u Gi\u00e1o d\u1ee5c","Email ph\u00ea duy\u1ec7t","CME & E-Learning"]},{"num":"04","title_en":"Pragmatic System Production","title_vi":"H\u1ec7 th\u1ed1ng Th\u1ef1c ti\u1ec5n","desc_en":"Efficient, adaptable systems for changing needs.","desc_vi":"H\u1ec7 th\u1ed1ng hi\u1ec7u qu\u1ea3 v\u00e0 linh ho\u1ea1t.","details_en":["Medical Website & Mobile Apps","Zalo Integration","Landing Page & Info-hub","CME & E-Learning Platform","Pharma CRM Application"],"details_vi":["Website & App","T\u00edch h\u1ee3p Zalo","Landing Page","CME Platform","Pharma CRM"]}]},"contact":{"label_en":"Contact","label_vi":"Li\u00ean h\u1ec7","title_en":"Let\u2019s start a conversation","title_vi":"B\u1eaft \u0111\u1ea7u tr\u00f2 chuy\u1ec7n","info":[{"type":"email","label":"Email","value":"info@kaleido.com.vn"},{"type":"phone","label":"Mobile","value":"+84 909 513 868"},{"type":"address","label":"Office","value":"Tan Dinh Ward, Ho Chi Minh City, Vietnam"},{"type":"linkedin","label":"LinkedIn","value":"KALEIDO","url":"#"}],"form":{"title_en":"Send us a message","title_vi":"G\u1eedi tin nh\u1eafn","desc_en":"Fill in the form below and our team will respond shortly.","desc_vi":"\u0110i\u1ec1n th\u00f4ng tin, ch\u00fang t\u00f4i s\u1ebd ph\u1ea3n h\u1ed3i s\u1edbm.","submit_en":"Send Message","submit_vi":"G\u1eedi tin nh\u1eafn","mailto":"info@kaleido.com.vn"}},"footer":{"desc_en":"We bring comprehensive marketing strategy and cutting-edge tools to the life science ecosystem.","desc_vi":"Chi\u1ebfn l\u01b0\u1ee3c marketing to\u00e0n di\u1ec7n cho h\u1ec7 sinh th\u00e1i khoa h\u1ecdc s\u1ef1 s\u1ed1ng.","copyright":"\u00a9 2025 KALEIDO. All rights reserved."}};
+
+var ghCfg={owner:'',repo:'',token:'',branch:'main'};
+try{var s=localStorage.getItem('kaleido-gh');if(s)ghCfg=JSON.parse(s);}catch(e){}
+
+// ═══ UNDO/REDO ═══
+var history=[JSON.stringify(data)],histIdx=0;
+function snap(){collectInputs();var j=JSON.stringify(data);if(j!==history[histIdx]){history=history.slice(0,histIdx+1);history.push(j);histIdx++;if(history.length>50)history.shift(),histIdx--;updUndoUI();}}
+function undo(){if(histIdx>0){collectInputs();histIdx--;data=JSON.parse(history[histIdx]);showSection(curSec,true);updUndoUI();toast('Undo','success');}}
+function redo(){if(histIdx<history.length-1){histIdx++;data=JSON.parse(history[histIdx]);showSection(curSec,true);updUndoUI();toast('Redo','success');}}
+function updUndoUI(){document.getElementById('btnUndo').disabled=histIdx<=0;document.getElementById('btnRedo').disabled=histIdx>=history.length-1;}
+window.undo=undo;window.redo=redo;
+
+// ═══ DOM ═══
+function h(tag,a,ch){var e=document.createElement(tag);if(a)Object.keys(a).forEach(function(k){if(k==='className')e.className=a[k];else if(typeof a[k]==='function')e.addEventListener(k.replace(/^on/,''),a[k]);else e.setAttribute(k,a[k]);});if(typeof ch==='string')e.innerHTML=ch;else if(Array.isArray(ch))ch.forEach(function(c){if(c)e.appendChild(c);});return e;}
+function pair(lbl,kE,kV,vE,vV,ta){var t=ta?'textarea':'input',g=h('div',{className:'fg'});g.appendChild(h('div',{className:'fr'},[h('div',null,[h('div',{className:'fl'},'<span class="lang lang-en">EN</span> '+lbl),h(t,Object.assign({className:'fi','data-key':kE,onchange:snap},ta?{}:{value:vE||''}),ta?(vE||''):undefined)]),h('div',null,[h('div',{className:'fl'},'<span class="lang lang-vn">VN</span> '+lbl),h(t,Object.assign({className:'fi','data-key':kV,onchange:snap},ta?{}:{value:vV||''}),ta?(vV||''):undefined)])]));return g;}
+function single(lbl,key,val,ta){var t=ta?'textarea':'input',g=h('div',{className:'fg'});g.appendChild(h('div',{className:'fl'},lbl));g.appendChild(h(t,Object.assign({className:'fi','data-key':key,onchange:snap},ta?{}:{value:val||''}),ta?(val||''):undefined));return g;}
+function card(id,title,children){var c=h('div',{className:'card',id:'sec-'+id});c.appendChild(h('div',{className:'card-hdr'},[h('div',{className:'card-t'},title),h('span',{className:'card-id'},id)]));if(Array.isArray(children))children.forEach(function(ch){if(ch)c.appendChild(ch);});return c;}
+function subLabel(num,text){return h('div',{className:'sub-d'},[h('div',{className:'sub-l'},(num?'<span class="sub-n">'+num+'</span> ':'')+text)]);}
+
+// ═══ LIST EDITOR with drag ═══
+function listCol(lang,key,arr){
+  var col=h('div');
+  col.appendChild(h('div',{className:'fl'},'<span class="lang lang-'+lang.toLowerCase()+'">'+lang+'</span> Detail items'));
+  var list=h('div',{className:'list-editor','data-list-key':key});
+  (arr||[]).forEach(function(item,i){list.appendChild(mkLI(i,item));});
+  enableDragList(list);
+  col.appendChild(list);
+  col.appendChild(h('button',{className:'btn-add',onclick:function(){var n=list.querySelectorAll('.li-item').length;list.appendChild(mkLI(n,''));enableDragList(list);snap();}},'\u002b Add item'));
+  return col;
+}
+function mkLI(i,val){
+  return h('div',{className:'li-item',draggable:'true'},[
+    h('span',{className:'li-drag'},'\u2261'),
+    h('span',{className:'li-num'},String(i+1)),
+    h('input',{className:'fi',value:val,onchange:snap}),
+    h('button',{className:'btn-del',onclick:function(){this.closest('.li-item').remove();renum(this.closest('.list-editor'));snap();}},'\u00d7')
+  ]);
+}
+function renum(list){if(!list)return;list.querySelectorAll('.li-num').forEach(function(n,i){n.textContent=i+1;});}
+function enableDragList(list){
+  var dragEl=null;
+  list.addEventListener('dragstart',function(e){var li=e.target.closest('.li-item');if(li){dragEl=li;li.classList.add('dragging');}});
+  list.addEventListener('dragend',function(){if(dragEl)dragEl.classList.remove('dragging');list.querySelectorAll('.li-item').forEach(function(l){l.classList.remove('drag-over');});dragEl=null;renum(list);snap();});
+  list.addEventListener('dragover',function(e){e.preventDefault();var li=e.target.closest('.li-item');if(li&&li!==dragEl){li.classList.add('drag-over');}});
+  list.addEventListener('dragleave',function(e){var li=e.target.closest('.li-item');if(li)li.classList.remove('drag-over');});
+  list.addEventListener('drop',function(e){e.preventDefault();var li=e.target.closest('.li-item');if(li&&dragEl&&li!==dragEl){list.insertBefore(dragEl,li);}list.querySelectorAll('.li-item').forEach(function(l){l.classList.remove('drag-over');});});
+}
+function listEdit(kE,kV,aE,aV){var g=h('div',{className:'fg'});g.appendChild(h('div',{className:'fr'},[listCol('EN',kE,aE),listCol('VN',kV,aV)]));return g;}
+
+// ═══ SECTIONS META ═══
+var meta={github:{t:'GitHub Connection',d:'Connect your repo for automatic deployment'},site:{t:'Site & Logos',d:'Upload brand logos'},nav:{t:'Navigation Bar',d:'Edit menu links — add, remove, or reorder'},footer:{t:'Footer',d:'Footer description and copyright'},hero:{t:'Hero Section',d:'The first thing visitors see'},why:{t:'Why We Can Help',d:'Value proposition cards — add, remove, or reorder'},'svc-h':{t:'Services Header',d:'Section label and title'},svc0:{t:'Brand Strategy',d:'Service block 2.1'},svc1:{t:'Communication',d:'Service block 2.2'},svc2:{t:'Content Creation',d:'Service block 2.3'},svc3:{t:'System Production',d:'Service block 2.4'},contact:{t:'Contact Information',d:'Office details — add or remove items'},form:{t:'Contact Form',d:'Form labels and configuration'}};
+
+// ═══ SECTION RENDERERS ═══
+var sections={};
+
+sections.github=function(){
+  var c=h('div',{className:'gh-card'});
+  c.innerHTML='<h3>GitHub Repository</h3><p class="gh-d">Connect your repo so edits auto-deploy via Vercel.<br>Token is stored locally in your browser only.</p><div class="gh-row"><div><label>Owner / Username</label><input id="gh-owner" placeholder="your-username" value="'+ghCfg.owner+'"></div><div><label>Repository Name</label><input id="gh-repo" placeholder="kaleido-website" value="'+ghCfg.repo+'"></div></div><label>Personal Access Token</label><input id="gh-token" type="password" placeholder="ghp_xxxxxxxxxxxx" value="'+ghCfg.token+'"><div class="gh-row"><div><label>Branch</label><input id="gh-branch" value="'+ghCfg.branch+'" style="margin-bottom:0"></div><div><label>&nbsp;</label><button class="btn btn-p" onclick="testGitHub()" style="width:100%;padding:.55rem .7rem;margin-bottom:0">Test Connection</button></div></div>';
+  return[c,h('div',{className:'info'},'<strong>How to get a token:</strong> GitHub \u2192 Settings \u2192 Developer Settings \u2192 Personal Access Tokens \u2192 Generate. Select <strong>repo</strong> scope.')];
+};
+
+sections.site=function(){
+  function lb(label,type,pid,iid,hint){return h('div',{className:'fg'},[h('div',{className:'fl'},label),h('div',{className:'logo-area',onclick:function(){document.getElementById(iid).click();}},[h('div',{className:'logo-prev',id:pid},data.site['logo_'+type]?'<img src="'+data.site['logo_'+type]+'">':'LOGO'),h('div',{className:'logo-txt'},'<strong>Click to upload</strong>'+hint)]),h('input',{type:'file',id:iid,accept:'image/*',style:'display:none',onchange:function(){handleLogoUpload(this,type);}})]);}
+  return[card('SITE','Site & Logos',[lb('Navigation Logo','nav','lnP','lnI','PNG or SVG \u2014 height 50px'),lb('Footer Logo','footer','lfP','lfI','PNG or SVG \u2014 height 80px')])];
+};
+
+sections.nav=function(){
+  var wrap=h('div');
+  data.nav.links.forEach(function(l,i){
+    var row=h('div',{className:'fg',style:'position:relative'});
+    var del=h('button',{className:'btn-del',style:'position:absolute;right:0;top:0',onclick:function(){data.nav.links.splice(i,1);snap();showSection('nav',true);}},'\u00d7');
+    row.appendChild(del);
+    row.appendChild(pair('Link '+(i+1)+' text','nav.links.'+i+'.label_en','nav.links.'+i+'.label_vi',l.label_en,l.label_vi));
+    row.appendChild(single('Anchor href','nav.links.'+i+'.href',l.href));
+    if(i<data.nav.links.length-1)row.appendChild(h('div',{style:'border-bottom:1px solid var(--gray-100);margin-top:.5rem'}));
+    wrap.appendChild(row);
+  });
+  wrap.appendChild(h('button',{className:'btn-add',onclick:function(){data.nav.links.push({label_en:'New Link',label_vi:'Link m\u1edbi',href:'#'});snap();showSection('nav',true);}},'\u002b Add navigation link'));
+  return[card('0.1','Navigation Links',[wrap])];
+};
+
+sections.hero=function(){return[card('1.1','Hero Section',[pair('Label','hero.label_en','hero.label_vi',data.hero.label_en,data.hero.label_vi),pair('Title','hero.title_en','hero.title_vi',data.hero.title_en,data.hero.title_vi),h('div',{className:'info'},'HTML tags allowed: <strong>&lt;em&gt;</strong> for italic emphasis.'),pair('Description','hero.desc_en','hero.desc_vi',data.hero.desc_en,data.hero.desc_vi,true),pair('CTA Button','hero.cta_en','hero.cta_vi',data.hero.cta_en,data.hero.cta_vi)])];};
+
+sections.why=function(){
+  var items=[];
+  data.why.cards.forEach(function(c,i){
+    items.push(h('div',{className:'sub-d',style:'position:relative'},[
+      h('div',{className:'sub-l'},'<span class="sub-n">'+(i+1)+'</span> Card '+(i+1)+' \u2014 '+c.title_en),
+      h('button',{className:'btn-del',style:'position:absolute;right:0;top:1rem',onclick:function(){data.why.cards.splice(i,1);snap();showSection('why',true);}},'\u00d7')
+    ]));
+    items.push(pair('Title','why.cards.'+i+'.title_en','why.cards.'+i+'.title_vi',c.title_en,c.title_vi));
+    items.push(pair('Description','why.cards.'+i+'.desc_en','why.cards.'+i+'.desc_vi',c.desc_en,c.desc_vi,true));
+  });
+  items.push(h('button',{className:'btn-add',onclick:function(){data.why.cards.push({title_en:'New Card',title_vi:'Card m\u1edbi',desc_en:'',desc_vi:'',icon:'star'});snap();showSection('why',true);}},'\u002b Add card'));
+  return[card('1.2','Why We Can Help',[pair('Section Label','why.label_en','why.label_vi',data.why.label_en,data.why.label_vi),pair('Section Title','why.title_en','why.title_vi',data.why.title_en,data.why.title_vi),pair('Section Desc','why.desc_en','why.desc_vi',data.why.desc_en,data.why.desc_vi,true)].concat(items))];
+};
+
+sections['svc-h']=function(){return[card('2.0','Services Section Header',[pair('Section Label','services.label_en','services.label_vi',data.services.label_en,data.services.label_vi),pair('Section Title','services.title_en','services.title_vi',data.services.title_en,data.services.title_vi)])];};
+
+[0,1,2,3].forEach(function(i){
+  sections['svc'+i]=function(){
+    var b=data.services.blocks[i];if(!b)return[];
+    return[card('2.'+(i+1),b.title_en,[
+      pair('Title','services.blocks.'+i+'.title_en','services.blocks.'+i+'.title_vi',b.title_en,b.title_vi),
+      pair('Description','services.blocks.'+i+'.desc_en','services.blocks.'+i+'.desc_vi',b.desc_en,b.desc_vi,true),
+      listEdit('services.blocks.'+i+'.details_en','services.blocks.'+i+'.details_vi',b.details_en,b.details_vi)
+    ])];
+  };
+});
+
+sections.contact=function(){
+  var wrap=h('div');
+  wrap.appendChild(pair('Section Label','contact.label_en','contact.label_vi',data.contact.label_en,data.contact.label_vi));
+  wrap.appendChild(pair('Section Title','contact.title_en','contact.title_vi',data.contact.title_en,data.contact.title_vi));
+  wrap.appendChild(subLabel('','Contact Details'));
+  data.contact.info.forEach(function(item,i){
+    var row=h('div',{className:'fg',style:'position:relative;padding-right:2rem'});
+    row.appendChild(h('button',{className:'btn-del',style:'position:absolute;right:0;top:.25rem',onclick:function(){data.contact.info.splice(i,1);snap();showSection('contact',true);}},'\u00d7'));
+    var fr=h('div',{className:'fr'});
+    fr.appendChild(single(item.label||'Label','contact.info.'+i+'.value',item.value));
+    if(item.url!==undefined)fr.appendChild(single('URL','contact.info.'+i+'.url',item.url));
+    else fr.appendChild(single('Type','contact.info.'+i+'.type',item.type));
+    row.appendChild(fr);
+    wrap.appendChild(row);
+  });
+  wrap.appendChild(h('button',{className:'btn-add',onclick:function(){data.contact.info.push({type:'custom',label:'New',value:''});snap();showSection('contact',true);}},'\u002b Add contact item'));
+  return[card('3.1','Contact Information',[wrap])];
+};
+
+sections.form=function(){return[card('3.2','Contact Form',[pair('Form Title','contact.form.title_en','contact.form.title_vi',data.contact.form.title_en,data.contact.form.title_vi),pair('Form Desc','contact.form.desc_en','contact.form.desc_vi',data.contact.form.desc_en,data.contact.form.desc_vi,true),pair('Submit Button','contact.form.submit_en','contact.form.submit_vi',data.contact.form.submit_en,data.contact.form.submit_vi),single('Mailto','contact.form.mailto',data.contact.form.mailto)])];};
+
+sections.footer=function(){return[card('0.2','Footer',[pair('Description','footer.desc_en','footer.desc_vi',data.footer.desc_en,data.footer.desc_vi,true),single('Copyright','footer.copyright',data.footer.copyright)])];};
+
+// ═══ SECTION SWITCHING ═══
+var curSec='github';
+function showSection(key,noSnap){
+  if(!noSnap)collectInputs();
+  curSec=key;
+  document.querySelectorAll('.sl').forEach(function(l){l.classList.toggle('active',l.getAttribute('data-s')===key);});
+  var main=document.getElementById('adminMain');
+  main.style.animation='none';main.offsetHeight;main.style.animation='';
+  main.innerHTML='';
+  var m=meta[key]||{t:'',d:''};
+  main.appendChild(h('div',{className:'mhdr'},[h('div',null,[h('div',{className:'mt'},m.t),h('div',{className:'ms'},m.d)])]));
+  (sections[key]?sections[key]():[]).forEach(function(e){main.appendChild(e);});
+}
+window.showSection=showSection;
+document.getElementById('sidebar').addEventListener('click',function(e){var l=e.target.closest('.sl');if(l&&l.dataset.s)showSection(l.dataset.s);});
+
+// ═══ DATA COLLECTION ═══
+function setN(o,p,v){var k=p.split('.'),c=o;for(var i=0;i<k.length-1;i++)c=c[isNaN(k[i])?k[i]:+k[i]];c[isNaN(k[k.length-1])?k[k.length-1]:+k[k.length-1]]=v;}
+function collectInputs(){
+  document.querySelectorAll('.fi[data-key]').forEach(function(inp){setN(data,inp.getAttribute('data-key'),inp.value);});
+  document.querySelectorAll('.list-editor').forEach(function(list){var items=[];list.querySelectorAll('.li-item input').forEach(function(inp){items.push(inp.value);});setN(data,list.getAttribute('data-list-key'),items);});
+  var o=document.getElementById('gh-owner');if(o){ghCfg={owner:o.value,repo:document.getElementById('gh-repo').value,token:document.getElementById('gh-token').value,branch:document.getElementById('gh-branch').value};try{localStorage.setItem('kaleido-gh',JSON.stringify(ghCfg));}catch(e){}}
+}
+
+// ═══ LOGO ═══
+window.handleLogoUpload=function(input,type){var file=input.files[0];if(!file)return;var r=new FileReader();r.onload=function(e){data.site['logo_'+type]=e.target.result;document.getElementById(type==='nav'?'lnP':'lfP').innerHTML='<img src="'+e.target.result+'">';snap();};r.readAsDataURL(file);};
+
+// ═══ EXPORT ═══
+window.exportJSON=function(){collectInputs();var b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='content.json';a.click();toast('JSON exported','success');};
+
+// ═══ PREVIEW ═══
+window.openPreview=function(){collectInputs();var w=window.open('index.html','kaleido-preview');if(w){setTimeout(function(){try{if(w.KaleidoCMS){w.KaleidoCMS.setData(data);toast('Preview updated','success');}else{toast('Preview opened \u2014 content engine not found','error');}}catch(e){toast('Preview opened in new tab','success');}},1500);}else{toast('Allow popups for preview','error');}};
+
+// ═══ GITHUB ═══
+window.saveToGitHub=function(){
+  collectInputs();snap();
+  if(!ghCfg.owner||!ghCfg.repo||!ghCfg.token){toast('Configure GitHub first','error');return;}
+  var btn=document.getElementById('btnSave');btn.innerHTML='&#8987; Saving...';btn.disabled=true;
+  var content=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
+  var url='https://api.github.com/repos/'+ghCfg.owner+'/'+ghCfg.repo+'/contents/content.json';
+  fetch(url,{headers:{'Authorization':'token '+ghCfg.token}}).then(function(r){return r.ok?r.json():null;}).then(function(ex){
+    var body={message:'Update content via KALEIDO CMS',content:content,branch:ghCfg.branch};if(ex&&ex.sha)body.sha=ex.sha;
+    return fetch(url,{method:'PUT',headers:{'Authorization':'token '+ghCfg.token,'Content-Type':'application/json'},body:JSON.stringify(body)});
+  }).then(function(r){btn.innerHTML='&#10003; Save &amp; Deploy';btn.disabled=false;toast(r.ok?'Saved! Vercel auto-deploys.':'Failed \u2014 check config.',r.ok?'success':'error');
+  }).catch(function(){btn.innerHTML='&#10003; Save &amp; Deploy';btn.disabled=false;toast('Network error','error');});
+};
+window.testGitHub=function(){
+  collectInputs();if(!ghCfg.owner||!ghCfg.repo||!ghCfg.token){toast('Fill all fields','error');return;}
+  fetch('https://api.github.com/repos/'+ghCfg.owner+'/'+ghCfg.repo,{headers:{'Authorization':'token '+ghCfg.token}}).then(function(r){return r.json();}).then(function(d){toast(d.full_name?'Connected: '+d.full_name:'Not found',d.full_name?'success':'error');}).catch(function(){toast('Connection failed','error');});
+};
+
+// ═══ TOAST ═══
+function toast(msg,type){var t=document.getElementById('toast');t.innerHTML=(type==='success'?'&#10003; ':'&#9888; ')+msg;t.className='toast '+type+' show';setTimeout(function(){t.classList.remove('show');},3000);}
+
+// ═══ KEYBOARD SHORTCUTS ═══
+document.addEventListener('keydown',function(e){
+  if((e.ctrlKey||e.metaKey)&&e.key==='z'&&!e.shiftKey){e.preventDefault();undo();}
+  if((e.ctrlKey||e.metaKey)&&(e.key==='y'||(e.key==='z'&&e.shiftKey))){e.preventDefault();redo();}
+  if((e.ctrlKey||e.metaKey)&&e.key==='s'){e.preventDefault();saveToGitHub();}
+});
+
+// ═══ BOOT ═══
+showSection('github');
+})();
+</script>
+</body>
+</html>
