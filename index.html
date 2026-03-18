@@ -1176,7 +1176,7 @@
     </a>
 
     <!-- Nav Links -->
-    <div class="nav-menu" id="navMenu">
+    <div class="nav-menu" id="navMenu" data-rebuild="nav">
       <a href="#about" class="nav-link active" data-content="nav.links.0.label">About Us</a>
       <a href="#services" class="nav-link" data-content="nav.links.1.label">Our Services</a>
       <a href="#contact" class="nav-link" data-content="nav.links.2.label">Contact</a>
@@ -1212,7 +1212,7 @@
       <p class="hero-desc">
         <span data-content="hero.desc">At KALEIDO, we believe a well thought-through life science marketing plan and tools is critical for business success. We bring a comprehensive strategy and cutting-edge tools to your ecosystem's integration.</span>
       </p>
-      <a href="#contact" class="hero-cta">
+      <a href="#contact" class="hero-cta" id="heroCta">
         Get in Touch
         <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
@@ -1554,7 +1554,7 @@
       <p class="section-desc"><span data-content="why.desc">With deep expertise in pharmaceutical, nutritional, and medical device sectors, we understand the regulations, the science, and the audience — so your message is always pertinent and accurate.</span></p>
     </div>
 
-    <div class="why-grid">
+    <div class="why-grid" id="whyGrid" data-rebuild="why-cards">
       <div class="why-card reveal">
         <div class="why-card-icon">
           <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -1700,7 +1700,7 @@
       <div class="section-label" data-content="contact.label">Contact</div>
       <h2 class="section-title" data-content="contact.title">Let's start a conversation</h2>
 
-      <div class="contact-info-cards">
+      <div class="contact-info-cards" id="contactCards" data-rebuild="contact-info">
         <div class="contact-info-card">
           <div class="contact-info-icon">
             <svg viewBox="0 0 24 24">
@@ -1803,7 +1803,7 @@
     <!-- Quick Links -->
     <div>
       <h4 class="footer-col-title">Navigation</h4>
-      <ul class="footer-links">
+      <ul class="footer-links" id="footerNav">
         <li><a href="#about">About Us</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -1813,7 +1813,7 @@
     <!-- Services -->
     <div>
       <h4 class="footer-col-title">Services</h4>
-      <ul class="footer-links">
+      <ul class="footer-links" id="footerSvc">
         <li><a href="#">Brand Strategy</a></li>
         <li><a href="#">Communication Campaign</a></li>
         <li><a href="#">Content Creation</a></li>
@@ -1824,7 +1824,7 @@
     <!-- Contact -->
     <div>
       <h4 class="footer-col-title">Contact</h4>
-      <div class="footer-contact-item">
+      <div id="footerContact"><div class="footer-contact-item">
         <svg class="footer-contact-icon" viewBox="0 0 24 24">
           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
           <polyline points="22,6 12,13 2,6"/>
@@ -1851,6 +1851,7 @@
           <circle cx="4" cy="4" r="2"/>
         </svg>
         <p><a href="https://www.linkedin.com/company/kaleido-vn/" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); transition: color 0.25s;">LinkedIn</a></p>
+      </div>
       </div>
     </div>
   </div>
@@ -1928,45 +1929,106 @@
   }
 
   // ─── Render: apply all bindings ───
+  // SVG icon library
+  var contactIcons = {
+    email: '<svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',
+    phone: '<svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+    address: '<svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+    linkedin: '<svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>',
+    custom: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>'
+  };
+  var whyIcons = [
+    '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+    '<svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+    '<svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>'
+  ];
+
+  function rebuildNav(lang) {
+    var c = document.getElementById('navMenu'); if (!c || !contentData.nav) return;
+    var sw = c.querySelector('.nav-lang');
+    c.querySelectorAll('.nav-link').forEach(function(a) { a.remove(); });
+    contentData.nav.links.forEach(function(link) {
+      var a = document.createElement('a');
+      a.href = link.href || '#';
+      a.className = 'nav-link';
+      a.textContent = link['label_' + lang] || link.label_en || '';
+      c.insertBefore(a, sw);
+    });
+  }
+
+  function rebuildWhyCards(lang) {
+    var g = document.getElementById('whyGrid'); if (!g || !contentData.why) return;
+    g.innerHTML = '';
+    contentData.why.cards.forEach(function(card, i) {
+      var d = document.createElement('div'); d.className = 'why-card reveal';
+      d.innerHTML = '<div class="why-card-icon">' + (whyIcons[i] || whyIcons[0]) + '</div>' +
+        '<h3>' + (card['title_' + lang] || card.title_en || '') + '</h3>' +
+        '<p>' + (card['desc_' + lang] || card.desc_en || '') + '</p>';
+      g.appendChild(d);
+    });
+  }
+
+  function rebuildContactInfo(lang) {
+    var c = document.getElementById('contactCards'); if (!c || !contentData.contact) return;
+    c.innerHTML = '';
+    contentData.contact.info.forEach(function(item) {
+      var icon = contactIcons[item.type] || contactIcons.custom;
+      var isLink = item.url && item.url !== '#';
+      var el = document.createElement(isLink ? 'a' : 'div');
+      el.className = 'contact-info-card';
+      if (isLink) { el.href = item.url; el.target = '_blank'; el.rel = 'noopener'; el.style.cssText = 'text-decoration:none;color:inherit;cursor:pointer;'; }
+      el.innerHTML = '<div class="contact-info-icon">' + icon + '</div><div><h4>' + (item.label || '') + '</h4><p>' + (item.value || '') + '</p></div>';
+      c.appendChild(el);
+    });
+  }
+
+  function rebuildFooter(lang) {
+    var fn = document.getElementById('footerNav');
+    if (fn && contentData.nav) { fn.innerHTML = ''; contentData.nav.links.forEach(function(l) { fn.innerHTML += '<li><a href="' + (l.href||'#') + '">' + (l['label_'+lang]||l.label_en||'') + '</a></li>'; }); }
+    var fs = document.getElementById('footerSvc');
+    if (fs && contentData.services) { fs.innerHTML = ''; contentData.services.blocks.forEach(function(b) { fs.innerHTML += '<li><a href="#services">' + (b['title_'+lang]||b.title_en||'') + '</a></li>'; }); }
+    var fc = document.getElementById('footerContact');
+    if (fc && contentData.contact) {
+      fc.innerHTML = '';
+      contentData.contact.info.forEach(function(item) {
+        var icon = contactIcons[item.type] || contactIcons.custom;
+        var svgPart = '<svg class="footer-contact-icon" ' + icon.slice(4);
+        if (item.url && item.url !== '#') {
+          fc.innerHTML += '<div class="footer-contact-item">' + svgPart + '<p><a href="' + item.url + '" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.4);transition:color .25s">' + (item.value||item.label||'') + '</a></p></div>';
+        } else {
+          fc.innerHTML += '<div class="footer-contact-item">' + svgPart + '<p>' + (item.value||'') + '</p></div>';
+        }
+      });
+    }
+  }
+
+  function updateCta(lang) {
+    var a = document.getElementById('heroCta'); if (!a || !contentData.hero) return;
+    a.href = contentData.hero.cta_href || '#contact';
+    a.innerHTML = (contentData.hero['cta_'+lang] || contentData.hero.cta_en || '') + ' <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+  }
+
   function renderAll(lang) {
     currentLang = lang;
-
     // Text bindings
-    var textEls = document.querySelectorAll('[data-content]');
-    textEls.forEach(function(el) { bindElement(el, lang); });
-
+    document.querySelectorAll('[data-content]').forEach(function(el) { bindElement(el, lang); });
     // HTML bindings
-    var htmlEls = document.querySelectorAll('[data-content-html]');
-    htmlEls.forEach(function(el) { bindElement(el, lang); });
-
+    document.querySelectorAll('[data-content-html]').forEach(function(el) { bindElement(el, lang); });
     // List bindings
-    var listEls = document.querySelectorAll('[data-content-list]');
-    listEls.forEach(function(el) { bindList(el, lang); });
-
+    document.querySelectorAll('[data-content-list]').forEach(function(el) { bindList(el, lang); });
     // Logo bindings
-    var logoEls = document.querySelectorAll('[data-logo]');
-    logoEls.forEach(function(el) { bindLogo(el); });
-
-    // Contact link bindings (e.g. LinkedIn URL from CMS)
-    var linkEls = document.querySelectorAll('[data-contact-link]');
-    linkEls.forEach(function(el) {
-      var idx = parseInt(el.getAttribute('data-contact-link'));
-      var info = contentData && contentData.contact && contentData.contact.info;
-      if (info && info[idx] && info[idx].url) {
-        el.setAttribute('href', info[idx].url);
-      }
-    });
-
-    // Update lang buttons
+    document.querySelectorAll('[data-logo]').forEach(function(el) { bindLogo(el); });
+    // Dynamic section rebuilds
+    rebuildNav(lang);
+    rebuildWhyCards(lang);
+    rebuildContactInfo(lang);
+    rebuildFooter(lang);
+    updateCta(lang);
+    // Lang buttons
     document.querySelectorAll('.nav-lang-btn').forEach(function(btn) {
       btn.classList.remove('active');
-      if (btn.getAttribute('data-lang') === lang) {
-        btn.classList.add('active');
-      }
+      if (btn.getAttribute('data-lang') === lang) btn.classList.add('active');
     });
-
-    // Store preference
-    // Language preference not persisted — always starts EN
   }
 
   // ─── Init: fetch content and render ───
