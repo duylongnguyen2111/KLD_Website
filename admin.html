@@ -221,7 +221,7 @@ function mkLI(i,val){
     h('span',{className:'li-drag'},'\u2261'),
     h('span',{className:'li-num'},String(i+1)),
     h('input',{className:'fi',value:val,onchange:snap}),
-    h('button',{className:'btn-del',onclick:function(){this.closest('.li-item').remove();renum(this.closest('.list-editor'));snap();}},'\u00d7')
+    h('button',{className:'btn-del',onclick:function(){var li=this.closest('.li-item');var list=li.closest('.list-editor');li.remove();renum(list);snap();}},'\u00d7')
   ]);
 }
 function renum(list){if(!list)return;list.querySelectorAll('.li-num').forEach(function(n,i){n.textContent=i+1;});}
@@ -381,7 +381,18 @@ document.addEventListener('keydown',function(e){
 });
 
 // ═══ BOOT ═══
-showSection('github');
+fetch('content.json')
+  .then(function(r){return r.json();})
+  .then(function(d){
+    // Merge fetched data into default (keeps structure if fields missing)
+    Object.keys(d).forEach(function(k){data[k]=d[k];});
+    history=[JSON.stringify(data)];histIdx=0;updUndoUI();
+    showSection('github');
+  })
+  .catch(function(){
+    console.warn('content.json not found, using defaults');
+    showSection('github');
+  });
 })();
 </script>
 </body>
